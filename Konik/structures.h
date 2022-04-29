@@ -1,6 +1,6 @@
 #pragma once
 
-void szachownica(int szerokosc_okna, int wysokosc_okna);
+#include <stdio.h>
 
 typedef struct Node {
 	int data;
@@ -15,4 +15,6 @@ typedef struct Stack {
 Stack* stackCreate();
 void stackPush(Stack* stos, int a);
 int stackPop(Stack* stos);
+int stackTop(Stack* stos);
 int stackSize(Stack* stos);
+void stackPrint(Stack* stos);

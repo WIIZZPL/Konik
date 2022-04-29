@@ -155,14 +155,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="funkcje.c" />
+    <ClCompile Include="rendering.c" />
+    <ClCompile Include="structures.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="funkcje.h" />
+    <ClInclude Include="GLOBALS.h" />
+    <ClInclude Include="structures.h" />
+    <ClInclude Include="rendering.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
