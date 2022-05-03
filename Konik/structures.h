@@ -13,8 +13,8 @@ typedef struct Stack {
 } Stack;
 
 Stack* stackCreate();
-void stackPush(Stack* stos, int a);
-int stackPop(Stack* stos);
-int stackTop(Stack* stos);
-int stackSize(Stack* stos);
-void stackPrint(Stack* stos);
+void stackPush(Stack* thisStack, int data);
+int stackPop(Stack* thisStack);
+int stackTop(Stack* thisStack);
+int stackSize(Stack* thisStack);
+void stackPrint(Stack* thisStack);

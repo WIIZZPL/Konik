@@ -6,27 +6,27 @@
 #include "GLOBALS.h"
 #include <math.h>
 
-ALLEGRO_COLOR al_map_hsv(float h, float s, float v) {
-	h = fmod(h, 360);
-	float C = s * v / 10000;
-	float X = C * (1 - fabs(fmod((h / 60), 2) - 1));
-	float m = v / 100 - C;
+ALLEGRO_COLOR al_map_hsv(float hue, float saturation, float value) {
+	hue = fmod(hue, 360);
+	float C = saturation * value / 10000;
+	float X = C * (1 - fabs(fmod((hue / 60), 2) - 1));
+	float m = value / 100 - C;
 	
 	float r, g, b;
 
-	if (h < 60) {
+	if (hue < 60) {
 		r = C; g = X; b = 0;
 	}
-	else if (h < 120) {
+	else if (hue < 120) {
 		r = X, g = C, b = 0;
 	}
-	else if (h < 180) {
+	else if (hue < 180) {
 		r = 0, g = C, b = X;
 	}
-	else if (h < 240) {
+	else if (hue < 240) {
 		r = 0, g = X, b = C;
 	}
-	else if (h < 300) {
+	else if (hue < 300) {
 		r = X, g = 0, b = C;
 	}
 	else {
@@ -36,40 +36,33 @@ ALLEGRO_COLOR al_map_hsv(float h, float s, float v) {
 	return al_map_rgb((r+m)*255, (g+m)*255, (b+m)*255);
 }
 
-void render_chessBoard(int displayWidth, int displayHeight) {
-	
-	int p = 0;
-
+void render_chessboard() {
 	ALLEGRO_COLOR kafelek0 = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR kafelek1 = al_map_rgb(45, 49, 66);
 
-	for (int j = 0; j < boardSize; j++)
-	{
-		for (int i = 0; i < boardSize; i++)
-		{
-			p = ++p % 2;
-			al_draw_filled_rectangle((displayWidth / boardSize) * i, (displayHeight / boardSize) * j, (displayWidth / boardSize) * (i + 1), (displayHeight / boardSize) * (j + 1), (p)?kafelek0:kafelek1); //mo¿na dodaæ skopiowaniem polecenia ramke pola szachownicy
+	for (int j = 0; j < boardSize; j++){
+		for (int i = 0; i < boardSize; i++){
+			al_draw_filled_rectangle((displayWidth / boardSize) * i, (displayHeight / boardSize) * j,
+				(displayWidth / boardSize) * (i + 1), (displayHeight / boardSize) * (j + 1),
+				((i+j)%2)?kafelek1:kafelek0);
 		}
-		p += (boardSize+1) % 2;
 	}
 }
 
-void render_KnightMoves(int displayWidth, int displayHeight, Stack* tour, ALLEGRO_BITMAP* konikBMP) {
+void render_KnightMoves(Stack* tour, ALLEGRO_BITMAP* knightBMP) {
 	if(!tour->size) return;
+
+	float hue = 347.0, saturation = 78.2, value = 80.8;
+	hue += 360.0 * (tour->size-1) / boardSize / boardSize;
+	ALLEGRO_COLOR tourColor = al_map_hsv(hue, saturation, value);
+	
 	Node* lastMove = tour->top;
-	int tourThickness = displayHeight/boardSize/10;
-
-	int kx = lastMove->data % boardSize;
-	int ky = lastMove->data / boardSize;
-
-	float h = 347, s = 78.2, v = 80.8;
-	h += 360.0 * (tour->size-1) / boardSize / boardSize;
-	ALLEGRO_COLOR tourColor = al_map_hsv(h, s, v);
+	int tourThickness = displayHeight / boardSize / 10;
 
 	//Rysowanie trasy
 	while (lastMove->next){
 		al_draw_filled_circle((lastMove->data % boardSize + 0.5) * (displayWidth / boardSize), (lastMove->data / boardSize + 0.5) * (displayHeight / boardSize),
-			tourThickness / 2.0, tourColor);
+			tourThickness, tourColor);
 		
 		al_draw_line((lastMove->data % boardSize + 0.5) * (displayWidth / boardSize), (lastMove->data / boardSize + 0.5) * (displayHeight / boardSize),
 			(lastMove->next->data % boardSize + 0.5) * (displayWidth / boardSize), (lastMove->next->data / boardSize + 0.5) * (displayHeight / boardSize),
@@ -77,8 +70,8 @@ void render_KnightMoves(int displayWidth, int displayHeight, Stack* tour, ALLEGR
 
 		lastMove = lastMove->next;
 
-		h -= 360.0 / boardSize / boardSize;
-		tourColor = al_map_hsv(h, s, v);
+		hue -= 360.0 / boardSize / boardSize;
+		tourColor = al_map_hsv(hue, saturation, value);
 	}
 
 	//X miejsca rozpoczecia
@@ -91,6 +84,8 @@ void render_KnightMoves(int displayWidth, int displayHeight, Stack* tour, ALLEGR
 		tourColor, tourThickness);
 
 	//Rysowanie konika
-	al_draw_scaled_bitmap(konikBMP, 0, 0, al_get_bitmap_width(konikBMP), al_get_bitmap_height(konikBMP),
-		displayWidth / boardSize * (kx), displayWidth / boardSize * (ky), displayHeight / boardSize, displayWidth / boardSize, 0);
+	int knightX = tour->top->data % boardSize;
+	int knightY = tour->top->data / boardSize;
+	al_draw_scaled_bitmap(knightBMP, 0, 0, al_get_bitmap_width(knightBMP), al_get_bitmap_height(knightBMP),
+		displayWidth / boardSize * knightX, displayWidth / boardSize * knightY, displayHeight / boardSize, displayWidth / boardSize, 0);
 }

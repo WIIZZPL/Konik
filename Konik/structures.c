@@ -10,36 +10,36 @@ Stack* stackCreate() {
 	return newStack;
 }
 
-void stackPush(Stack* stos, int a) {
+void stackPush(Stack* thisStack, int data) {
 	Node* newNode = (Node*)malloc(sizeof(Node));
 	assert(newNode);
-	newNode->data = a;
-	newNode->next = stos->top;
-	stos->top = newNode;
-	stos->size++;
+	newNode->data = data;
+	newNode->next = thisStack->top;
+	thisStack->top = newNode;
+	thisStack->size++;
 }
 
-int stackPop(Stack* stos) {
-	if (stos->size <= 0) return -1;
-	Node* temp = stos->top;
-	stos->top = temp->next;
+int stackPop(Stack* thisStack) {
+	if (thisStack->size <= 0) return -1;
+	Node* temp = thisStack->top;
+	thisStack->top = temp->next;
 	int r = temp->data;
 	free(temp);
-	stos->size--;
+	thisStack->size--;
 	return r;
 }
 
-int stackTop(Stack* stos) {
-	if (stos->top) return stos->top->data;
+int stackTop(Stack* thisStack) {
+	if (thisStack->top) return thisStack->top->data;
 	return -1;
 }
 
-int stackSize(Stack* stos) {
-	return stos->size;
+int stackSize(Stack* thisStack) {
+	return thisStack->size;
 }
 
-void stackPrint(Stack* stos) {
-	Node* iter = stos->top;
+void stackPrint(Stack* thisStack) {
+	Node* iter = thisStack->top;
 	while (iter) {
 		printf("%d ", iter->data);
 		iter = iter->next;

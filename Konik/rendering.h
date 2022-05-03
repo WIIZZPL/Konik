@@ -4,8 +4,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-ALLEGRO_COLOR al_map_hsv(float h, float s, float v);
+ALLEGRO_COLOR al_map_hsv(float hue, float saturation, float value);
 
-void render_chessBoard(int displayWidth, int displayHight);
+void render_chessboard();
 
-void render_KnightMoves(int displayWidth, int displayHeight, Stack* tour, ALLEGRO_BITMAP* konikBMP);
+void render_KnightMoves(Stack* tour, ALLEGRO_BITMAP* knightBMP);

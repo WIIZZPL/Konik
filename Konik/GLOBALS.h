@@ -1,4 +1,4 @@
 #pragma once
 
 int displayWidth, displayHeight;
-#define boardSize 4
+#define boardSize 8
