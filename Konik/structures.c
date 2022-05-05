@@ -4,15 +4,25 @@
 
 Stack* stackCreate() {
 	Stack* newStack = (Stack*)malloc(sizeof(Stack));
-	assert(newStack);
+	if (!newStack) exit(138);
 	newStack->top = NULL;
 	newStack->size = 0;
 	return newStack;
 }
 
+void stackDestroy(Stack* thisStack) {
+	Node* iter = thisStack->top;
+	while (iter){
+		Node* nast = iter->next;
+		free(iter);
+		iter = nast;
+	}
+	free(thisStack);
+}
+
 void stackPush(Stack* thisStack, int data) {
 	Node* newNode = (Node*)malloc(sizeof(Node));
-	assert(newNode);
+	if (!newNode) exit(138);
 	newNode->data = data;
 	newNode->next = thisStack->top;
 	thisStack->top = newNode;

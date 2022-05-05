@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="knightTour.c" />
     <ClCompile Include="rendering.c" />
     <ClCompile Include="structures.c" />
     <ClCompile Include="main.c" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLOBALS.h" />
+    <ClInclude Include="knightTour.h" />
     <ClInclude Include="structures.h" />
     <ClInclude Include="rendering.h" />
   </ItemGroup>

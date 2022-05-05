@@ -13,6 +13,7 @@ typedef struct Stack {
 } Stack;
 
 Stack* stackCreate();
+void stackDestroy(Stack* thisStack);
 void stackPush(Stack* thisStack, int data);
 int stackPop(Stack* thisStack);
 int stackTop(Stack* thisStack);
