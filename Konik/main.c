@@ -9,14 +9,19 @@
 #include "structures.h"
 #include "knightTour.h"
 
-int main(void){
+int main(int argc, char **argv){
 	//INICJALIZACJA
 	if(!al_init()) return -1;
 	if(!al_init_image_addon()) return -1;
 	if(!al_init_primitives_addon()) return -1;
 	if(!al_install_mouse()) return -1;
 
-	boardSize = 20;
+	if (argc == 1) {
+		boardSize = 8;
+	}
+	else {
+		boardSize = atoi(argv[1]);
+	}
 	displayWidth = 1000;
 	displayHeight = 1000;
 	ALLEGRO_DISPLAY* display = al_create_display(displayWidth, displayHeight);

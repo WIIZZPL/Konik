@@ -12,6 +12,7 @@ Stack* sourceVisit; // stos z pozycjami z ktorych odzwiedzic te w toVisit
 Stack* tour;        // stos z aktualna trasa konika
 
 unsigned char* tab = NULL;
+double t;
 
 ALLEGRO_BITMAP* knightBMP;
 
@@ -26,7 +27,8 @@ void initKnightTour(int startingSquare) {
 	tour = stackCreate();
 	
 	tab = (unsigned char*)calloc(boardSize * boardSize, sizeof(unsigned char));
-	
+	t = al_get_time();
+
 	knightBMP = al_load_bitmap("knight.png");
 	if (!knightBMP) exit(2);
 }
@@ -121,6 +123,8 @@ void stepKnightTour() {
 	render_chessboard();
 	render_KnightMoves(tour, knightBMP);
 	al_flip_display();
+
+	if (stackSize(tour) == boardSize * boardSize) printf("Time: %lfs", al_get_time()-t);
 }
 
 void delKnightTour() {
