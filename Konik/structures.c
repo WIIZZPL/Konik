@@ -2,6 +2,14 @@
 #include <allegro5/allegro_primitives.h>
 #include "structures.h"
 
+
+/*! \fn Stack* stackCreate()
+	 \brief
+	 Funkcja tworzaca stos
+
+	 \return Zwraca wskaznik na stos
+*/
+
 Stack* stackCreate() {
 	Stack* newStack = (Stack*)malloc(sizeof(Stack));
 	if (!newStack) exit(138);
@@ -9,6 +17,15 @@ Stack* stackCreate() {
 	newStack->size = 0;
 	return newStack;
 }
+
+
+/*! \fn void stackDestroy(Stack* thisStack)
+	 \brief
+	 Funkcja niszczaca stos 
+
+	 \param thisStack
+
+*/
 
 void stackDestroy(Stack* thisStack) {
 	Node* iter = thisStack->top;
@@ -20,6 +37,16 @@ void stackDestroy(Stack* thisStack) {
 	free(thisStack);
 }
 
+
+/*! \fn void stackPush(Stack* thisStack, int data)
+	 \brief
+	 Funkcja wkladajaca element na stosu
+
+	 \param thisStack
+	 \param data
+
+*/
+
 void stackPush(Stack* thisStack, int data) {
 	Node* newNode = (Node*)malloc(sizeof(Node));
 	if (!newNode) exit(138);
@@ -28,6 +55,18 @@ void stackPush(Stack* thisStack, int data) {
 	thisStack->top = newNode;
 	thisStack->size++;
 }
+
+
+/*! \fn int stackPop(Stack* thisStack)
+	 \brief
+	 Funkcja usuwajaca element znajdujacy sie na gorze stosu, ktory pozniej zwraca
+
+	 \param thisStack
+
+
+	 \return Zwraca wartosc ktora znajdowala sie na gorze (r)
+
+*/
 
 int stackPop(Stack* thisStack) {
 	if (thisStack->size <= 0) return -1;
@@ -39,14 +78,45 @@ int stackPop(Stack* thisStack) {
 	return r;
 }
 
+
+/*! \fn int stackTop(Stack* thisStack)
+	 \brief
+	 Funkcja zwracajaca wartosc na gorze
+
+	 \param thisStack
+
+	 \return Zwraca wartosc znajdujaca sie na gorze stosu
+
+*/
+
 int stackTop(Stack* thisStack) {
 	if (thisStack->top) return thisStack->top->data;
 	return -1;
 }
 
+
+/*! \fn int stackSize(Stack* thisStack)
+	 \brief
+	 Funkcja zwracajaca rozmiar stosu
+
+	 \param thisStack
+
+	 \return Zwraca rozmiar stosu
+
+*/
+
 int stackSize(Stack* thisStack) {
 	return thisStack->size;
 }
+
+
+/*! \fn void stackPrint(Stack* thisStack)
+	 \brief
+	 Funkcja wypisujaca stos
+
+	 \param thisStack
+
+*/
 
 void stackPrint(Stack* thisStack) {
 	Node* iter = thisStack->top;

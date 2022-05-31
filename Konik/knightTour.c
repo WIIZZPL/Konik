@@ -11,10 +11,18 @@ Stack* toVisit;     // stos z lista pozycji do odwiedzenia
 Stack* sourceVisit; // stos z pozycjami z ktorych odzwiedzic te w toVisit
 Stack* tour;        // stos z aktualna trasa konika
 
-unsigned char* tab = NULL;
-double t;
+unsigned char* tab = NULL;	// tablica odwiedzonych elemntow
+double t;	//zmienna przechowujaca czas
 
-ALLEGRO_BITMAP* knightBMP;
+ALLEGRO_BITMAP* knightBMP;	// rysunek konika
+
+/*! \fn void initKnightTour(int startingSquare)
+	 \brief
+	 Funkcja rozpoczynajaca ruch konika
+
+	 \param startingSquare
+
+*/
 
 void initKnightTour(int startingSquare) {
 	//Sprawdzanie inicjalizacji
@@ -32,6 +40,12 @@ void initKnightTour(int startingSquare) {
 	knightBMP = al_load_bitmap("knight.png");
 	if (!knightBMP) exit(2);
 }
+
+/*! \fn void stepKnightTour()
+	 \brief
+	 Funkcja wykonujaca krok konika
+
+*/
 
 void stepKnightTour() {
 	//Sprawdzanie inicjalizacji
@@ -126,6 +140,12 @@ void stepKnightTour() {
 
 	if (stackSize(tour) == boardSize * boardSize) printf("Time: %lfs", al_get_time()-t);
 }
+
+/*! \fn void delKnightTour()
+	 \brief
+	 Deinicjalizacja
+
+*/
 
 void delKnightTour() {
 	if (!tab) return;

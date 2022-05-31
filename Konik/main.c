@@ -9,8 +9,11 @@
 #include "structures.h"
 #include "knightTour.h"
 
+
+//Cale polecenie projektu
+
 int main(int argc, char **argv){
-	//INICJALIZACJA
+	//Inicjalizacja
 	if(!al_init()) return -1;
 	if(!al_init_image_addon()) return -1;
 	if(!al_init_primitives_addon()) return -1;

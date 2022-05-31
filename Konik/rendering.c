@@ -6,6 +6,18 @@
 #include "GLOBALS.h"
 #include <math.h>
 
+/*! \fn ALLEGRO_COLLOR al_map_hsv(float hue, float saturation, float value)
+	\brief
+	Funkcja do tworzenia gladkich przejsc miedzy kolorami wyznaczajacymi trase konika
+
+	\param hue
+	\param saturation
+	\param value
+
+	\return aaa
+
+*/
+
 ALLEGRO_COLOR al_map_hsv(float hue, float saturation, float value) {
 	hue = fmod(hue, 360);
 	float C = saturation * value / 10000;
@@ -36,6 +48,12 @@ ALLEGRO_COLOR al_map_hsv(float hue, float saturation, float value) {
 	return al_map_rgb((r+m)*255, (g+m)*255, (b+m)*255);
 }
 
+/*! \fn void render_chessboard()
+	\brief
+	Funkcja tworzaca szachownice
+
+*/
+
 void render_chessboard() {
 	ALLEGRO_COLOR kafelek0 = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR kafelek1 = al_map_rgb(45, 49, 66);
@@ -48,6 +66,15 @@ void render_chessboard() {
 		}
 	}
 }
+
+/*! \fn void render_KnightMoves(Stack* tour, ALLEGRO_BITMAP* knightBMP)
+	\brief
+	Funkcja renderujaca ruchy skoczka
+
+	\param tour
+	\param knightBMP
+
+*/
 
 void render_KnightMoves(Stack* tour, ALLEGRO_BITMAP* knightBMP) {
 	if(!tour->size) return;
